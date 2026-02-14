@@ -1,0 +1,4 @@
+facebook_business
+pandas
+gspread
+oauth2client
