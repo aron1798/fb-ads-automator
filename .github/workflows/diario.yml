@@ -1,0 +1,23 @@
+name: Actualizar Facebook Ads
+on:
+  schedule:
+    - cron: '0 11 * * *' # 6:00 AM hora Perú
+  workflow_dispatch:
+jobs:
+  correr-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v3
+      - name: Instalar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Instalar librerías
+        run: pip install -r requirements.txt
+      - name: Ejecutar reporte
+        env:
+          FB_ACCESS_TOKEN: ${{ secrets.FB_ACCESS_TOKEN }}
+          FB_AD_ACCOUNT_ID: ${{ secrets.FB_AD_ACCOUNT_ID }}
+          GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+        run: python main.py
